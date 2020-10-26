@@ -5,8 +5,10 @@ Dans le cadre du cours de Sémiologie graphique de notre Master MIASHS, nous avo
 
 Participation  :
 
-- Joseph Aka brou
+- Joseph Aka Brou
 - Marwa Elatrache 
 - Caroline Martin
-- Tharshika NAGARATNAM
+- Tharshika Nagaratnam
 - Omar Seck
+
+Pour les données, nous avonc choisi le site http://ghdx.healthdata.org/, qui propose de récupérer différents types de données de santé par pays.
