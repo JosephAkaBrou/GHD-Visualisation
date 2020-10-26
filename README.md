@@ -5,6 +5,7 @@ Dans le cadre du cours de Sémiologie graphique de notre Master MIASHS, nous avo
 
 Participation  :
 
+- Joseph Aka brou
 - Marwa Elatrache 
 - Caroline Martin
 - Tharshika NAGARATNAM
