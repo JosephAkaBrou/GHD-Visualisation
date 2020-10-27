@@ -8,6 +8,7 @@ output: html_notebook
 
 ```{r}
 library(ggplot2)
+library(dplyr)
 
 df <- read.csv('data3.csv')
 
@@ -22,7 +23,7 @@ str(df)
 summary(df)
 ```
 
-Nombre de modalité pour chaque variables catégorielles
+Nombre de modalité pour chaques variables catégorielles
 
 ```{r}
 var_categ <- df[1:6]
@@ -31,9 +32,16 @@ sapply(var_categ, function(x) length(unique(x)))
   
 ```
 
-
+Premier exemple sur les données de la France
 ```{r}
-repartition_age <- table(df$age)
+df_fr <- df %>% filter(location == "France")
+df_fr_cardio <- df_fr %>% filter(cause == "Cardiovascular diseases")
 ```
 
+Exemple de plot, l'idée serait de laisser le choix de sélection du pays et de la cause avec shiny, car il y a beaucoup trop de modalité catégorielles (graphe chargé à éviter)
 
+```{r}
+ggplot(data = df_fr_cardio, aes(x = sex, y = val, fill= age)) +
+  geom_bar(position="dodge", stat="identity") +
+  labs(title = "Taux de *nom de la cause* à *nom du pays*")
+```
