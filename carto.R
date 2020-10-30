@@ -10,7 +10,7 @@ world <- st_as_sf(rnaturalearth::countries110)
 europe <- dplyr::filter(world, region_un=="Europe" & name!='Russia')
 europe.bbox <- st_polygon(list(matrix(c(-25,29,45,29,45,75,-25,75,-25,29),byrow = T,ncol = 2)))
 europe.clipped <- suppressWarnings(st_intersection(europe, st_sfc(europe.bbox, crs=st_crs(europe))))
-europe.clipped <- europe.clipped[,c("admin", "geometry")]
+europe.clipped <- europe.clipped[,c("admin", "geometry","pop_est")]
 
 # Données sur les accidents
 #setwd("C:/Users/thars/Desktop/GHD-Visualisation")
@@ -28,9 +28,11 @@ df_final = left_join(europe.clipped,df_t, by = c("admin"="location"))
 
 # Carte
 gg <- ggplot(df_final) +
-  geom_sf_interactive(mapping = aes(fill = total, 
+  geom_sf_interactive(mapping = aes(fill = (total/pop_est)*100, 
                                  tooltip = paste("Pays : ", 
                                                  admin,"<br/>", 
+                                                 "Taux de mortalité : ", 
+                                                 paste(round((total/pop_est)*100,2), " %"), "<br/>",
                                                  "Nombre de morts : ", 
                                                  round(total,0), "<br/>",
                                                  "Taux de morts 'Female' : ", 
@@ -38,7 +40,7 @@ gg <- ggplot(df_final) +
                                                  "Taux de morts 'Male' : ", 
                                                  taux_male, "<br/>"), 
                                  data_id = admin))+
-  scale_fill_gradient2(name = "Nombre de morts",mid = "lightyellow", high = "red", 
+  scale_fill_gradient2(name = "Taux de mortalité (en %)",mid = "lightyellow", high = "red", 
                        na.value="lightgrey",guide = "colourbar")+
   ggtitle("Nombre de mortalité par accident de la route")+
   theme(plot.title = element_text(hjust = 0.5, face = "bold"))+
