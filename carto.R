@@ -4,18 +4,31 @@ library(ggplot2)
 library(ggiraph)
 library(scatterpie)
 library(reshape2)
+library(readxl)
+
+save(data3, file = "data3.Rdata")
+save(Population, file = "Population.Rdata")
 
 # Données geometry 
 world <- st_as_sf(rnaturalearth::countries110)
 europe <- dplyr::filter(world, region_un=="Europe" & name!='Russia')
 europe.bbox <- st_polygon(list(matrix(c(-25,29,45,29,45,75,-25,75,-25,29),byrow = T,ncol = 2)))
 europe.clipped <- suppressWarnings(st_intersection(europe, st_sfc(europe.bbox, crs=st_crs(europe))))
-europe.clipped <- europe.clipped[,c("admin", "geometry","pop_est")]
+europe.clipped <- europe.clipped[,c("admin", "geometry", "adm0_a3")]
+
+# Population 
+Population <- read_excel("Population.xls", skip = 2)
+Population <- Population[c(1,2,55:64)]
+Population[Population$`Country Name` == "Kosovo","Country Code"] <- "KOS"
+
+# jointure
+df_geo_pop = left_join(europe.clipped,Population, by = c("adm0_a3"="Country Code"))
 
 # Données sur les accidents
 #setwd("C:/Users/thars/Desktop/GHD-Visualisation")
 #data3 = read.csv2("data3.csv", sep = ",")
-df = data3[data3$cause == "Road injuries",]
+
+df = data3[data3$cause == "Road injuries" & data3$year == str(input$annee),]
 df_select = df[,c("location", "sex", "val")]
 df_t = dcast(df_select, location ~ sex, fun = sum)
 df_t$total = df_t$Female + df_t$Male
@@ -24,15 +37,15 @@ df_t$taux_male = paste(round((df_t$Male / df_t$total)*100,0), "%")
 df_t$Country = df_t$location
 
 # Jointure
-df_final = left_join(europe.clipped,df_t, by = c("admin"="location"))
+df_final = left_join(df_geo_pop,df_t, by = c("admin"="location"))
 
 # Carte
 gg <- ggplot(df_final) +
-  geom_sf_interactive(mapping = aes(fill = (total/pop_est)*100, 
+  geom_sf_interactive(mapping = aes(fill = (total/input$annee)*100, 
                                  tooltip = paste("Pays : ", 
                                                  admin,"<br/>", 
                                                  "Taux de mortalité : ", 
-                                                 paste(round((total/pop_est)*100,2), " %"), "<br/>",
+                                                 paste(round((total/input$annee)*100,2), " %"), "<br/>",
                                                  "Nombre de morts : ", 
                                                  round(total,0), "<br/>",
                                                  "Taux de morts 'Female' : ", 
@@ -42,7 +55,7 @@ gg <- ggplot(df_final) +
                                  data_id = admin))+
   scale_fill_gradient2(name = "Taux de mortalité (en %)",mid = "lightyellow", high = "red", 
                        na.value="lightgrey",guide = "colourbar")+
-  ggtitle("Nombre de mortalité par accident de la route")+
+  ggtitl(paste("Nombre de mortalité par accident de la route en ", str(input$annee)))+
   theme(plot.title = element_text(hjust = 0.5, face = "bold"))+
   theme(axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
