@@ -2,6 +2,7 @@ library(ggplot2)
 library(dplyr)
 library(tibble)
 library(scales)
+library(Hmisc)
 
 df <- read.csv('data3.csv')
 
@@ -49,3 +50,67 @@ p <- ggplot(df_fr_cardio_40_44, aes(x=as.factor(ID), y=val)) +
 
 p
 
+bardata <- df_fr_cardio %>%
+  group_by( sex ) %>%
+  summarise( tot_val = sum(val))
+
+ggplot(bardata) +
+  geom_bar(
+    aes( x = 2.5, y = tot_val, fill = sex),
+    stat = "identity"
+  ) +
+  coord_polar(theta="y")
+
+rectdata <- df_fr_cardio %>%
+  group_by(sex) %>%
+  summarise( tot_val = sum( val )) %>%
+  ungroup() %>%
+  mutate(
+    ymax = cumsum( tot_val),
+    ymin = lag(ymax, n = 1, default = 0)
+  )
+
+ggplot( rectdata ) +
+  geom_rect(
+    aes( xmin = 2, xmax = 3, ymin = ymin, ymax = ymax, fill = sex),
+    color = "white"
+  ) +
+  xlim(0, 4) + theme_bw()
+  
+
+innerCircle <- ggplot( rectdata ) +
+  geom_rect(
+    aes( xmin = 2, xmax = 3, ymin = ymin, ymax = ymax, fill = sex),
+    color = "white"
+  ) +
+  xlim( 0, 4)
+
+innerCircle + coord_polar(theta = "y")
+
+outerCircleData <- df %>%
+  group_by( age, sex ) %>%
+  summarise( tot = sum( val ) ) %>%
+  left_join( rectdata %>% select( sex, tot_val) ) %>%
+  ungroup() %>%
+  mutate(
+    ymax = cumsum(tot),
+    ymin = lag( ymax, n = 1, default = 0 )
+  ) %>%
+  filter( !is.na( age ) )
+
+outerCircle <-
+  geom_rect(
+    data = outerCircleData,
+    aes( xmin = 3, xmax = 4, ymin = ymin, ymax = ymax, fill = age ),
+    color = "white"
+  )
+
+innerCircle + outerCircle
+
+innerCircle + outerCircle + coord_polar(theta = "y")
+
+ggplot(df_fr_cardio, aes(x = age, y=val)) +
+  geom_violin() +
+  stat_summary(fun.data = "mean_sdl",geom="pointrange", width=0.2 ) +
+  facet_wrap( ~ sex)
+  
