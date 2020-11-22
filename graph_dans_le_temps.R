@@ -7,8 +7,10 @@ data = read.csv("https://raw.githubusercontent.com/JosephAkaBrou/GHD-Visualisati
 sex = as.character(unique(data$sex))
 causes = as.character(unique(data$cause))
 location = as.character(unique(data$location))
-year = as.integer(unique(data$year))
+data$year = as.factor(data$year)
+year = unique(data$year)
 age =as.integer(unique(data$age))
+
 
 
 # La ici je cr?er les 3 variables qu'on peut faire varier.####
