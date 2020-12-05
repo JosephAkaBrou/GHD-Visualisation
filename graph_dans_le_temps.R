@@ -4,7 +4,7 @@ library(dplyr)
 library(ggforce)
 library(plotly)
 
-data = read.csv("https://raw.githubusercontent.com/JosephAkaBrou/GHD-Visualisation/main/data3.csv")
+data = read.csv("data3.csv")
 
 # Ici j'ai cr?er les vecteurs de valeurs qui permetent de changer le visuel ####
 sex = as.character(unique(data$sex))

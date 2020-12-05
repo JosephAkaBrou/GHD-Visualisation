@@ -1,6 +1,8 @@
 library(shiny)
 library(shinymaterial)
-
+library(leaflet)
+library(plotly)
+library(ggiraph)
 
 
 
@@ -58,17 +60,39 @@ material_page(
     material_row(
       color = "#C46E77",
       material_column(
+        width = 10,
         p("Pays"),
         offset = 1,
         color = "#C46E77",
         material_dropdown(input_id = "id_pays",
                               label = "",
-                              choices = c("France", "Australie"),
-                              selected = "France",
+                              choices = c(),
+                              selected = "",
                               color = "#C46E77")
                              
       )
+    ),
+    #filter cause, à générer automatiquement
+    material_row(
+      color = "#C46E77",
+      material_column(
+        width = 10,
+        p("Causes"),
+        offset = 1,
+        color = "#C46E77",
+        material_dropdown(input_id = "id_cause",
+                          label = "",
+                          choices = c(),
+                          selected = "",
+                          color = "#C46E77")
+        
+      )
     )
+    
+    
+    
+    
+    
   ),
   
   #onglet
@@ -103,7 +127,29 @@ material_page(
       
 
     )
+  ),
+  material_tab_content(
+    tab_id = "carto",
+    material_card(
+      girafeOutput("carto_vis")
+    )
+  ),
+  material_tab_content(
+    tab_id = "vis1",
+    material_row(
+      material_column(   
+        width = 12,
+        material_card(
+          width = 10,
+          plotlyOutput('visu1')
+      )
+        
+        
+      )
+    )
+ 
   )
+  
   
   
   
