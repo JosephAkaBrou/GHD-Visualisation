@@ -14,18 +14,7 @@ data$year = as.factor(data$year)
 year = unique(data$year)
 age = as.integer(unique(data$age))
 
-# La ici je cr?er les 3 variables qu'on peut faire varier.####
-
-# Pour sex il y a que deux valeurs possibles ####
-# Pour la cause, il y a 20 valeurs possibles ####
-# Et pour la Country 45 valeurs ####
-sex_value = sex[2] # Choisi un nombre entre 1 et 2 
-cause_value = causes[1] # Choisi un nombre entre 1 et 20
-location_value = c(location[5], location[8], location[2]) # Choisi un nombre entre 1 et 45 
-
-
-# L? ici on fait un filtre avec kes 3 variables au dessus. En situation r?elle, il faut une liste qui permet de choisir ? l'utilisateur
-# Quelles valeurs de sex, cause et Country il veut voir. Pour l'exemple j'ai juste rendu possible la s?lection al?atoire juste haut. 
+### Rajouter le pays choisi (location) et la cause voulue
 
 filtered_df = data[(data$cause == cause_value) & (data$location %in% location_value),
           c("val","year", "upper","lower", "sex", "location")]
