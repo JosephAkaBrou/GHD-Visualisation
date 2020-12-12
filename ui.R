@@ -141,7 +141,7 @@ material_page(
         width = 12,
         material_card(
           width = 10,
-          plotlyOutput('visu1')
+          plotOutput('visu1')
       )
         
         

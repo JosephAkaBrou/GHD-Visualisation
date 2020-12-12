@@ -103,7 +103,7 @@ shinyServer(function(session,input, output) {
   
   
   
-  output$visu1 <- renderPlotly({
+  output$visu1 <- renderPlot({
     
     # Ici j'ai cr?er les vecteurs de valeurs qui permetent de changer le visuel ####
     data = data3
@@ -162,7 +162,8 @@ shinyServer(function(session,input, output) {
     ann_text_women <- data.frame(year = 3, val = text_pos_women+70,lab = "Text",
                                  sex = factor("Women",levels = c("Men","Women")))
     
-    p <- ggplot(data = subset(d, Country != "Europe"), mapping = aes(x = as.factor(year), y = val, group=Country)) +
+    
+    p <- ggplot(data = subset(d, Country != "Europe"), mapping = aes(x = year, y = val, group=Country)) +
       geom_mark_ellipse(aes(fill = Country, 
                             label = Country), 
                         expand = 0.005,
@@ -180,7 +181,7 @@ shinyServer(function(session,input, output) {
     
     p
     
-    ggplotly(p)
+
 
     
     

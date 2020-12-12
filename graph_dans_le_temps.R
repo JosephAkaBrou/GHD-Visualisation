@@ -3,6 +3,8 @@ library(hrbrthemes)
 library(dplyr)
 library(ggforce)
 library(plotly)
+library(lubridate)
+library(ggiraph)
 
 data = read.csv("data3.csv")
 
@@ -13,6 +15,10 @@ location = as.character(unique(data$location))
 data$year = as.factor(data$year)
 year = unique(data$year)
 age = as.integer(unique(data$age))
+
+
+cause_value = "Road injuries"
+location_value ="Poland"
 
 ### Rajouter le pays choisi (location) et la cause voulue
 
@@ -51,9 +57,17 @@ ann_text_men <- data.frame(year = 3, val = text_pos_men+70,lab = "Text",
 ann_text_women <- data.frame(year = 3, val = text_pos_women+70,lab = "Text",
                            sex = factor("Women",levels = c("Men","Women")))
 
+
+
+#d$year <- as.Date(as.character(d$year), format = "%Y")
+d$year <- year(d$year)
+
+
 p <- ggplot(data = subset(d, Country != "Europe"), mapping = aes(x = year, y = val, group=Country)) +
-  geom_mark_ellipse(aes(fill = Country, 
-                        label = Country), 
+  scale_x_discrete(labels = c("y2010" ,"y2011", "y2012", "y2013", "y2014",  "y2015", "y2016", "y2017", "y2018", "y2019"))+
+ 
+  geom_mark_ellipse(aes(fill = Country,
+                        label = Country),
                     expand = 0.005,
                     alpha = 0.1,
                     size = 0.1) +
@@ -69,7 +83,9 @@ p <- ggplot(data = subset(d, Country != "Europe"), mapping = aes(x = year, y = v
 
 p
 
+
 ggplotly(p)
+
 
 
 
