@@ -17,7 +17,7 @@ europe.clipped <- suppressWarnings(st_intersection(europe, st_sfc(europe.bbox, c
 europe.clipped <- europe.clipped[,c("admin", "geometry", "adm0_a3")]
 
 # Population
-Population <- read_excel("Population.xls", skip = 2)
+Population <- read_excel("data/Population.xls", skip = 2)
 Population <- Population[c(1,2,55:64)]
 Population[Population$`Country Name` == "Kosovo","Country Code"] <- "KOS"
 
