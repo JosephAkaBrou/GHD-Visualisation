@@ -6,7 +6,7 @@ library(plotly)
 library(lubridate)
 library(ggiraph)
 
-data = read.csv("data3.csv")
+data = read.csv("data/data3.csv")
 
 # Ici j'ai cr?er les vecteurs de valeurs qui permetent de changer le visuel ####
 sex = as.character(unique(data$sex))

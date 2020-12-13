@@ -1,13 +1,17 @@
 library(shiny)
 library(shinymaterial)
-source("carto.R")
-library(leaflet)
-library(plotly)
+
+
 library(ggplot2)
 library(hrbrthemes)
 library(dplyr)
 library(ggforce)
 library(ggiraph)
+
+source("carto.R")
+
+#library(treemap)
+#library(d3treeR)
 
 
 
@@ -16,7 +20,7 @@ library(ggiraph)
 
 shinyServer(function(session,input, output) {
   #df = read.csv('./data3.csv')
-  data3 = read.csv("data3.csv", sep = ",")
+  data3 = read.csv("data/data3.csv", sep = ",")
   liste_pays = unique(data3$location)
   liste_causes = unique(data3$cause)
   
@@ -38,6 +42,9 @@ shinyServer(function(session,input, output) {
  
   
   output$carto_vis <- renderGirafe({
+    #--- Show the spinner ---#
+   # material_spinner_show(session, "carto_vis")
+    #Sys.sleep(time = 1)
     
     df = data3[data3$cause == input$id_cause & data3$year == input$id_an,]
     #df = data3[data3$cause == "Road injuries" & data3$year =="2017",]
@@ -59,7 +66,7 @@ shinyServer(function(session,input, output) {
    # nom_col = paste0("col_", input$id_an)
     
     
-    
+   
     # Carte
     gg <- ggplot(df_final) +
       geom_sf_interactive(mapping = aes(fill = (total/(eval(parse(text = paste0( "`", input$id_an, "`")))))*100, 
@@ -69,9 +76,9 @@ shinyServer(function(session,input, output) {
                                                         paste(round((total/(eval(parse(text = paste0( "`", input$id_an, "`")))))*100,2), " %"), "<br/>",
                                                         "Nombre de morts : ", 
                                                         round(total,0), "<br/>",
-                                                        "Taux de morts 'Female' : ", 
+                                                        "Part de femmes mortes : ", 
                                                         taux_female, "<br/>",
-                                                        "Taux de morts 'Male' : ", 
+                                                        "Part d'hommes morts : ", 
                                                         taux_male, "<br/>"), 
                                                         data_id =admin))+
       scale_fill_gradient2(name = "Taux de mortalité (en %)",mid = "lightyellow", high = "red", 
@@ -91,12 +98,16 @@ shinyServer(function(session,input, output) {
                 fill = "lightgrey", color = "gray43", size = 0.4)+
       annotate(geom = "text", x = -20, y = 31, label = "NA", color = "grey22", size = 4) 
     
-     girafe(ggobj = gg) %>%
+   # material_spinner_hide(session, "carto_vis")
+    
+     girafe(ggobj = gg,
+            width_svg = 10,
+            height_svg = 10) %>%
       girafe_options(opts_tooltip(opacity = .8),
                      opts_zoom(min = .5, max = 4),
                      opts_hover(css = "fill:white;stroke:orange;r:7pt;") )
       
-      
+     
       
    
   })
@@ -185,6 +196,31 @@ shinyServer(function(session,input, output) {
     p
     
   })
+  
+  getPage<-function() {
+    return(includeHTML("tree.html"))
+  }
+  output$inc<-renderUI({getPage()})
+  
+ #  data_tree <- read.csv("data/data_cause.csv")
+ #  group <- data_tree$Parent.Name
+ #  subgroup <- data_tree$cause
+ #  val <- data_tree$val
+ #  
+ #  data_tree <- data.frame(group,subgroup,val)
+ #  tm_vis <- treemap( data_tree,
+ #                   index=c("group","subgroup"),
+ #                   vSize="val",
+ #                   type="index")
+ #  
+ #  
+ #  
+ #  
+ #  d3tree2(tm_vis)
+ #  
+ # # output$visu_treemap <- renderD3tree2({d3tree2(tm_vis)})
+ #  
+ #  
   
   
   

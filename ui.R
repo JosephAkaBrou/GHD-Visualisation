@@ -1,9 +1,11 @@
 library(shiny)
 library(shinymaterial)
-library(leaflet)
-library(plotly)
-library(ggiraph)
 
+
+library(ggiraph)
+# library(treemap)
+# library(htmlwidgets)
+# library(d3treeR)
 
 
 
@@ -18,27 +20,27 @@ material_page(
     br(),
     br(),
     #filtre sexe
-    material_row(
-      material_column(
-        p("Sexe"),
-        offset = 1,
-        width = 12,
-        material_checkbox(
-          input_id = "f",
-          label = "Femme",
-          initial_value = FALSE,
-          color = "#C46E77"
-        ),
-        material_checkbox(
-          input_id = "h",
-          label = "Homme",
-          initial_value = FALSE,
-          color = "#C46E77"
-        )
-        )
-
-      
-    ),
+    # material_row(
+    #   material_column(
+    #     p("Sexe"),
+    #     offset = 1,
+    #     width = 12,
+    #     material_checkbox(
+    #       input_id = "f",
+    #       label = "Femme",
+    #       initial_value = FALSE,
+    #       color = "#C46E77"
+    #     ),
+    #     material_checkbox(
+    #       input_id = "h",
+    #       label = "Homme",
+    #       initial_value = FALSE,
+    #       color = "#C46E77"
+    #     )
+    #     )
+    # 
+    #   
+    # ),
     
     #filter année
     material_row(
@@ -100,8 +102,8 @@ material_page(
     tabs = c(
       "Accueil" = "accueil",
       "Cartographie" = "carto",
-      "Visu1" = "vis1",
-      "Visu2"= "vis2"
+      "Séries temporelles" = "vis1",
+      "Treemap"= "vis2"
       
     )
   ),
@@ -112,27 +114,42 @@ material_page(
     tab_id = "accueil",
     material_card(
       
-      h5("Membre du groupe:"),
+      h5("Membres du groupe:"),
       tags$ul(
       tags$li("Joseph AKA BROU"),
       tags$li("Marwa ELATRACHE"),
       tags$li("Caroline MARTIN"),
       tags$li("Tharshika NAGARATNAM"),
       tags$li("Omar SECK")
-      ),
-      
-      
-      h5("Choix des graphes")
-      
-      
+      )
 
+    ),
+    material_card(
+      h5('Github'),
+      p('https://github.com/JosephAkaBrou/GHD-Visualisation')
     )
   ),
   material_tab_content(
     tab_id = "carto",
-    material_card(
-      girafeOutput("carto_vis")
+    material_row(
+      material_column(
+        width = 12,
+        material_card(
+          h5("choix du graphe:"),
+          p("Nous avons décidé de représenter
+            le taux de mortalité (nombre de morts en année x / population en année x) 
+            sur une année sur une carte car ça permet de visualiser géographiquement 
+            le taux de mortalité et le comparer par pays.")
+          ),
+        material_card(
+          h5("Veuillez sélectionner l'année et la cause:"),
+          girafeOutput("carto_vis")
+        )
+
+        
+      )
     )
+
   ),
   material_tab_content(
     tab_id = "vis1",
@@ -140,15 +157,42 @@ material_page(
       material_column(   
         width = 12,
         material_card(
+          h5("choix du graphe:"),
+          p("")
+          
+        ),
+        
+        material_card(
           width = 10,
+          h5("Veuillez sélectionner le pays et la cause:"),
           plotOutput('visu1')
-      )
+          ))) ),
+  
+  material_tab_content(
+    tab_id = "vis2",
+    material_row(
+      material_column(
+        width = 12,
+        material_card(
+          h5("choix du graphe:"),
+          p("")
+          
+        ),
+        htmlOutput("inc")
         
-        
+        # material_card(
+        #   includeHTML("tree.html")
+        #  # d3tree2Output('visu_treemap',
+        #  #                width = "400px", height = "400px")
+        # )
       )
+      
     )
- 
-  )
+ )
+      
+    
+  
+  
   
   
   

@@ -12,3 +12,5 @@ Participation  :
 - Omar Seck
 
 Pour les données, nous avonc choisi le site http://ghdx.healthdata.org/, qui propose de récupérer différents types de données de santé par pays.
+
+https://josephakabrou.github.io/GHD-Visualisation/.
