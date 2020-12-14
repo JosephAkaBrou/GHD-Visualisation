@@ -1,9 +1,10 @@
 library(treemap)
 library(dplyr)
 library(ggplot2)
+library(d3treeR)
 #library(treemapify)
 
-data <- read.csv("data_cause.csv")
+data <- read.csv("data/data_cause.csv")
 
 #selection seulement des niveaux 1 et 2
 data_f <- dplyr::filter(data,Level != 0)
@@ -61,8 +62,10 @@ val <- current_category$val
 data_plot <- data.frame(group,subgroup,val)
 
 # treemap
-treemap(data_plot,
+tme = treemap(data_plot,
         index=c("group","subgroup"),
         vSize="val",
         type="index"
 )
+d3tree2(tme, rootname = "Causes")
+

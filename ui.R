@@ -111,20 +111,24 @@ material_page(
   material_tab_content(
     tab_id = "accueil",
     material_card(
-      
-      h5("Membres du groupe:"),
+      h5("Projet de visualisation"),
+      p(
+        "Dans le cadre du cours de Sémiologie graphique de notre Master MIASHS, 
+        nous avons été amenés à chercher des données dans le but d'implémenter trois représentation graphique
+        (ggplot2) dans une application R Shiny."
+      ),
+      p("Pour les données, nous avonc choisi le site",tags$a(href ="http://ghdx.healthdata.org/","http://ghdx.healthdata.org/"), "qui propose de récupérer différents types de données de santé par pays."),
+      h5("Participation"),
       tags$ul(
       tags$li("Joseph AKA BROU"),
       tags$li("Marwa ELATRACHE"),
       tags$li("Caroline MARTIN"),
       tags$li("Tharshika NAGARATNAM"),
       tags$li("Omar SECK")
-      )
+      ),
+    h5("Github"),
+    tags$a(href="https://github.com/JosephAkaBrou/GHD-Visualisation", "Lien Github")
 
-    ),
-    material_card(
-      h5('Github'),
-      p('https://github.com/JosephAkaBrou/GHD-Visualisation')
     )
   ),
   material_tab_content(
@@ -177,9 +181,10 @@ material_page(
           
         ),
         material_card(
+          p("Pour une treemap interactive:",tags$a(href="https://josephakabrou.github.io/GHD-Visualisation/?fbclid=IwAR2Z0Cdjqtv9Hm8m4a7caBVP3NJKjHHOTMu4Sp8CRm8U0JY0I9KPMd3_G18",
+                 "Appuyez ici!")),
           
-          tags$a(href="https://josephakabrou.github.io/GHD-Visualisation/?fbclid=IwAR2Z0Cdjqtv9Hm8m4a7caBVP3NJKjHHOTMu4Sp8CRm8U0JY0I9KPMd3_G18",
-                 "Click here!")
+          img(src ="treemap.png", width = "600px")
           
         )
         
