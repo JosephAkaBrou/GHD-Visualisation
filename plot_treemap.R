@@ -7,7 +7,8 @@ group <- data$Parent.Name
 subgroup <- data$cause
 val <- data$val
 
-data <- data.frame(group,subgroup,val)
+data <- data.frame(group,subgroup,val) %>% 
+  filter(group != "All causes")
 
 # treemap
 tm_vis = treemap(data,

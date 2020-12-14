@@ -1,7 +1,5 @@
 library(shiny)
 library(shinymaterial)
-
-
 library(ggiraph)
 # library(treemap)
 # library(htmlwidgets)
@@ -178,7 +176,13 @@ material_page(
           p("")
           
         ),
-        htmlOutput("inc")
+        material_card(
+          
+          tags$a(href="https://josephakabrou.github.io/GHD-Visualisation/?fbclid=IwAR2Z0Cdjqtv9Hm8m4a7caBVP3NJKjHHOTMu4Sp8CRm8U0JY0I9KPMd3_G18",
+                 "Click here!")
+          
+        )
+        
         
         # material_card(
         #   includeHTML("tree.html")

@@ -197,10 +197,8 @@ shinyServer(function(session,input, output) {
     
   })
   
-  getPage<-function() {
-    return(includeHTML("tree.html"))
-  }
-  output$inc<-renderUI({getPage()})
+
+
   
  #  data_tree <- read.csv("data/data_cause.csv")
  #  group <- data_tree$Parent.Name
