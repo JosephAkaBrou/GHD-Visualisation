@@ -3,7 +3,7 @@ library(dplyr)
 library(ggplot2)
 #library(treemapify)
 
-data <- read.csv("data/data_cause.csv")
+data <- read.csv("data_cause.csv")
 
 #selection seulement des niveaux 1 et 2
 data_f <- dplyr::filter(data,Level != 0)
@@ -43,7 +43,7 @@ final_data <- left_join(data_cause_lvl2,data_lvl3, by='key')
 
 
 #Ici on peut donc choisir le parent 1 entre 'Communicable, maternal, neonatal, and nutritional diseases' 'Non-communicable diseases' et 'Injuries' 
-current_categorie = filter(final_data, Parent.Name == 'Injuries')
+current_category = filter(final_data, Parent.Name == 'Injuries')
 
 #ggplot(current_data , aes(area = val, fill = val, label = key,
                    #subgroup = cause)) +
@@ -54,9 +54,9 @@ current_categorie = filter(final_data, Parent.Name == 'Injuries')
   #geom_treemap_text(colour = "white", place = "topleft", reflow = T)
 
 
-group <- current_data$key
-subgroup <- current_data$cause
-val <- current_data$val
+group <- current_category$key
+subgroup <- current_category$cause
+val <- current_category$val
 
 data_plot <- data.frame(group,subgroup,val)
 
