@@ -44,8 +44,8 @@ final_data <- left_join(data_cause_lvl2,data_lvl3, by='key')
 
 
 #Ici on peut donc choisir le parent 1 entre 'Communicable, maternal, neonatal, and nutritional diseases' 'Non-communicable diseases' et 'Injuries' 
-current_category = filter(final_data, Parent.Name == 'Injuries')
-
+#current_category = filter(final_data, Parent.Name == 'Injuries')
+current_category = final_data
 #ggplot(current_data , aes(area = val, fill = val, label = key,
                    #subgroup = cause)) +
   #geom_treemap() +

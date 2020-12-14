@@ -115,10 +115,10 @@ material_page(
       p(
         "Dans le cadre du cours de Sémiologie graphique de notre Master MIASHS, 
         nous avons été amenés à chercher des données dans le but d'implémenter trois représentation graphique
-        (ggplot2) dans une application R Shiny."
+         dans une application R Shiny."
       ),
       p("Pour les données, nous avonc choisi le site",tags$a(href ="http://ghdx.healthdata.org/","http://ghdx.healthdata.org/"), "qui propose de récupérer différents types de données de santé par pays."),
-      h5("Participation"),
+      h5("Membres de l'équipe:"),
       tags$ul(
       tags$li("Joseph AKA BROU"),
       tags$li("Marwa ELATRACHE"),
