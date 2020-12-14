@@ -18,11 +18,11 @@ data_lvl3 <- dplyr::filter(data,Level == 3)
 data_lvl4 <- dplyr::filter(data,Level == 4)
 
 #data_lvl1_sub <- data_lvl1[1:2,]
-names(data_lvl1_sub)[names(data_lvl1_sub) == 'Parent.Name'] <- 'Parent'
-names(data_lvl1_sub)[names(data_lvl1_sub) == 'cause'] <- 'Parent.Name'
+#names(data_lvl1_sub)[names(data_lvl1_sub) == 'Parent.Name'] <- 'Parent'
+#names(data_lvl1_sub)[names(data_lvl1_sub) == 'cause'] <- 'Parent.Name'
 #data_lvl2_sub <- data_lvl2[8:22,]
 
-join_lvl_1_2 <- inner_join(data_lvl1_sub,data_lvl2_sub, by=c("Parent.Name"))
+#join_lvl_1_2 <- inner_join(data_lvl1_sub,data_lvl2_sub, by=c("Parent.Name"))
 
 
 #on ne veut que les communicable
