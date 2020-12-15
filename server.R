@@ -185,6 +185,8 @@ shinyServer(function(session,input, output) {
                         size = 0.1) +
       theme_ipsum() +
       geom_ribbon(aes(ymin = lower, ymax = upper), fill = "grey70", alpha = 0.3) +
+      xlab("Year")+
+      ylab("Number of deaths")+
       geom_line(color="black") +
       geom_line(data=subset(d, Country=="Europe"), aes(x=year, y=val, group="Europe"), linetype=2, color="red") +
       geom_point(shape=21, color="grey", fill="#69b3a2", size=3) +
