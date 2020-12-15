@@ -17,28 +17,7 @@ material_page(
   material_side_nav(
     br(),
     br(),
-    #filtre sexe
-    # material_row(
-    #   material_column(
-    #     p("Sexe"),
-    #     offset = 1,
-    #     width = 12,
-    #     material_checkbox(
-    #       input_id = "f",
-    #       label = "Femme",
-    #       initial_value = FALSE,
-    #       color = "#C46E77"
-    #     ),
-    #     material_checkbox(
-    #       input_id = "h",
-    #       label = "Homme",
-    #       initial_value = FALSE,
-    #       color = "#C46E77"
-    #     )
-    #     )
-    # 
-    #   
-    # ),
+    
     
     #filter année
     material_row(
@@ -114,7 +93,7 @@ material_page(
       h5("Projet de visualisation"),
       p(
         "Dans le cadre du cours de Sémiologie graphique de notre Master MIASHS, 
-        nous avons été amenés à chercher des données dans le but d'implémenter trois représentation graphique
+        nous avons été amenés à chercher des données dans le but d'implémenter trois représentations graphiques
          dans une application R Shiny."
       ),
       p("Pour les données, nous avonc choisi le site",tags$a(href ="http://ghdx.healthdata.org/","http://ghdx.healthdata.org/"), "qui propose de récupérer différents types de données de santé par pays."),
@@ -160,7 +139,9 @@ material_page(
         width = 12,
         material_card(
           h5("choix du graphe:"),
-          p("")
+          p("Nous avons profité du fait que les donnés soit disponible par années pour visualiser l’évolution des causes mortelles dans le temps.
+            Pour cela, nous avons construit une série temporelle disponible pour chaque pays.
+            De même, pour chacun des pays vous avez le choix de visualiser la cause mortelle que vous souhaitez.")
           
         ),
         
@@ -177,7 +158,8 @@ material_page(
         width = 12,
         material_card(
           h5("choix du graphe:"),
-          p("")
+          p("Nous avions un dataset sous la forme de donnée catégorielle imbriqué avec pour chacune une valeur numérique asccocié. L'objectif avec le treemap est de pouvoir
+            percevoir ces valeurs numériques sous forme de proportion.")
           
         ),
         material_card(
