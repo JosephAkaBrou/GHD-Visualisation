@@ -13,4 +13,4 @@ Participation  :
 
 Pour les données, nous avonc choisi le site http://ghdx.healthdata.org/, qui propose de récupérer différents types de données de santé par pays.
 
-https://josephakabrou.github.io/GHD-Visualisation/.
+## Lien de l'app : https://marwa10.shinyapps.io/ghd-visu/
